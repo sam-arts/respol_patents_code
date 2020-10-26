@@ -20,9 +20,12 @@ Creation and Impact of New Technologies in Patent Text: Code, Data, and New
 Measures"
 
 """
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-idx_file = data_dir+'new_word/keywords_idx.txt'
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# Input common files
 ayear_file = data_dir+'patent_ayear.txt'
+# Input files from new_word measure
+idx_file = data_dir+'new_word/keywords_idx.txt'
+# Output file for new_word measure
 base_voc_file = data_dir+'new_word/keywords_baseline_vocabulary.txt'
 
 print('Building baseline vocabulary...')

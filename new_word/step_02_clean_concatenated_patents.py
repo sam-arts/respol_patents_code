@@ -31,21 +31,34 @@ import re
 
 
 def checkRoman(token):
+    """
+    Check if a token is a roman numeral.
+
+
+    Parameters
+    ----------
+    token : A string.
+
+    Returns
+    -------
+    True/False : A true value
+
+    """    
     re_pattern = '[mdcxvi]+[a-z]'
     if re.fullmatch(re_pattern, token):
         return True
     return False
 
 
-aux_dir = 'E:/data/2019_patent_novelty_aux_files/'
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
+aux_dir = 'E:/data/2019_patent_novelty_aux_files/' # Original data directory
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
 greek_file = aux_dir+'greek.txt'
 symbol_file = aux_dir+'symbols.txt'
 stop_file = aux_dir+'additional_stopwords.txt'
-# Common data for all processes
+# Input common files
 concat_file = data_dir+'patent_concatenated.txt'
 pno_file = data_dir+'patent_number.txt'
-# New_word measure output
+# Output files for new_word measure
 voc_file = data_dir+'new_word/keywords_vocabulary.txt'
 uni_file = data_dir+'new_word/keywords.txt'
 
@@ -95,10 +108,10 @@ with open(concat_file, 'r', encoding='utf-8') as concat_reader:
         # Standardize greek letters and eliminate symbols
         for r in list_replace:
             line = line.replace(*r)
-        # Replace .sub. and .sup.
+        # Replace .sub. and .sup. in each patent
         line = line.replace('.sub.', '')
         line = line.replace('.sup.', '')
-        # Extract tokens using regular expression
+        # Extract tokens using a regular expression
         tokens = re.findall('[a-z0-9][a-z0-9-]*[a-z0-9]+|[a-z0-9]', line)
         tokens = set(tokens)
         # Remove stopwords, and words of only one char and compossed only
