@@ -20,10 +20,11 @@ Creation and Impact of New Technologies in Patent Text: Code, Data, and New
 Measures"
 
 """
+
 data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
-# Input common files
+# Input common file
 ayear_file = data_dir+'patent_ayear.txt'
-# Input files from new_word measure
+# Input file from new_word measure
 idx_file = data_dir+'new_word/keywords_idx.txt'
 # Output file for new_word measure
 base_voc_file = data_dir+'new_word/keywords_baseline_vocabulary.txt'
@@ -37,7 +38,7 @@ with open(idx_file, 'r', encoding='utf-8') as idx_reader,\
         ayear = int(line_ayear.strip())
         if ayear < 1980:
             tokens = line_idx.strip().split(',')  # Remove the newline char
-            tokens = tokens[1].split()
+            tokens = tokens[1].split() # Split tokens
             for token in tokens:
                 voc[token] = 0
         i += 1

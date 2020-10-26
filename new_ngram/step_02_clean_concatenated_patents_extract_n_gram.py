@@ -13,12 +13,16 @@ Created on Mon Aug 3 14:15:00 2020
 @description: Cleans the patent_concatenated.txt file by removing NLTK stop-
 words, other common stopwords, greek letters, symbols and roman numerals.
 Additionally it apply stemmming to each word using the SnowBall method
-from NLTK. The output consists of two files, ngrams_[n]_vocabulary.txt, that
-contains the list of all unique n-grams (beign n 2 or 3) in all the patents,
-and ngrams_[n].txt, that contains the clean text for each patent. The text
-is the list of unique n-grams for each patent.
+from NLTK. It then forms n-grams (2 or 3) from the unigrams in each patent.
+It removes n-grams appearing in only one patent. The output consists of two
+files, ngrams_[n]_vocabulary.txt, that contains the list of all unique n-grams
+(2 or 3) in all the patents, and ngrams_[n].txt, that contains the clean text
+for each patent. The text is the list of unique n-grams for each patent.
 
-This code is part of the article:
+
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 
@@ -30,6 +34,19 @@ import re
 
 
 def checkRoman(token):
+    """
+    Check if a token is a roman numeral.
+
+
+    Parameters
+    ----------
+    token : A string.
+
+    Returns
+    -------
+    True/False : A true value
+
+    """        
     re_pattern = '[mdcxvi]+[a-z]'
     if re.fullmatch(re_pattern, token):
         return True
@@ -43,17 +60,17 @@ def checkword(w, stwrds):
     return False
 
 
-aux_dir = 'E:/data/2019_patent_novelty_aux_files/'
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# Common data for all processes
+aux_dir = 'E:/data/2019_patent_novelty_aux_files/' # Original data
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# Input common files
 greek_file = aux_dir+'greek.txt'
 symbol_file = aux_dir+'symbols.txt'
 stop_file = aux_dir+'additional_stopwords.txt'
 concat_file = data_dir+'patent_concatenated.txt'
 pno_file = data_dir+'patent_number.txt'
-# N-gram size (2 or 3)
+# n-gram size (2 or 3)
 n = 3
-# N-gram output
+# Output files for new_ngram measure
 voc_file = data_dir+'new_ngram/ngrams_'+str(n)+'_vocabulary.txt'
 ngram_file = data_dir+'new_ngram/ngrams_'+str(n)+'.txt'
 
@@ -151,6 +168,7 @@ with open(concat_file, 'r', encoding='utf-8') as concat_reader:
             print('\t ', i, ' patents processed')
 print(str(n)+'-grams extracted!')
 
+print('Cleaning n-gram vocabulary...')
 # Clean ngrams appearing in only one patent
 list_ngrams = list(d_ngrams)
 d_dirty = {}
@@ -158,16 +176,20 @@ for ngram in list_ngrams:
     d_dirty[ngram] = d_ngrams[ngram]
     if d_ngrams[ngram] < 2:
         del d_ngrams[ngram]
+print('N-gram vocabulary cleaned!')
 
 voc_sorted = sorted(d_ngrams.items(), key=operator.itemgetter(1), reverse=True)
 
+print('Saving n-gram vocabulary...')
 # Write the clean vocabulary
 with open(voc_file, 'w', encoding='utf-8') as voc_writer:
     for ngram in voc_sorted:
         ngramstr = ' '.join(ngram[0])
         ngramstr += ' '+str(ngram[1])
         voc_writer.write(ngramstr+'\n')
+print('N-gram vocabulary saved!')
 
+print('Cleaning patent data using the n-gram vocabulary and saving it...')
 # Clean patents using the vocabulary and write them
 with open(ngram_file, 'w', encoding='utf-8') as ngram_writer:
     for n_grams, patent in zip(clean_patents, patents):
@@ -178,3 +200,4 @@ with open(ngram_file, 'w', encoding='utf-8') as ngram_writer:
             text_wrt = ','.join([ngram[0]+' '+ngram[1]+' '+ngram[2]
                                  for ngram in n_grams if ngram in d_ngrams])
         ngram_writer.write(patent+','+text_wrt+'\n')
+print('Patent data cleaned and saved!')

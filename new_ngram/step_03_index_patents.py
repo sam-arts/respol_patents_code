@@ -10,23 +10,25 @@ Created on Mon Aug 3 14:15:00 2020
          sam.arts@kuleuven.be
          jianan.hou@kuleuven.be
 
-@description: Indexs the patent nrams using the vocabulary. This is done to
-speed up the comparison process to find the first patent using an ngram and
-all the patents using such unigram. The outputs is ngrams_[n]_idx.txt,
-that contains the index of each ngram as in the vocabulary, with n as the size
-of the ngrams (2 or 3)
+@description: Indexs the patent nrams in the file ngrams_[n].txt using the
+vocabulary in ngrams_[n]_vocabulary.txt. This is done to speed up the
+comparison process in the following steps. The outputs is ngrams_[n]_idx.txt,
+that contains the index of each ngram as in the vocabulary. n is the size of
+the ngrams (2 or 3)
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# N-gram size (2 or 3)
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# n-gram size (2 or 3)
 n = 3
-# N-gram input
+# Input files from new_ngram measure
 voc_file = data_dir+'new_ngram/ngrams_'+str(n)+'_vocabulary.txt'
 ngram_file = data_dir+'new_ngram/ngrams_'+str(n)+'.txt'
-# Output file
+# Output file for new_ngram measure
 idx_file = data_dir+'new_ngram/ngrams_'+str(n)+'_idx.txt'
 
 print('Reading vocabulary...')

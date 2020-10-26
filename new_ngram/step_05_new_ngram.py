@@ -15,9 +15,11 @@ ngrams from patents in the past and the baseline dictionary. The ngrams are
 extracted and considered only for patents filed from 1980 onwards. The output
 is new_ngram_[n].txt, containing the list of new ngrams found in patents,
 the first patent to use it (patent number) and the total number of patents
-using it.
+using it. n is the size of the ngrams (2 or 3)
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 
@@ -45,16 +47,16 @@ def read_file(file):
     return content
 
 
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# N-gram size (2 or 3)
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# n-gram size (2 or 3)
 n = 2
-# Input general file
+# Input common file
 ayear_file = data_dir+'patent_ayear.txt'
-# Input ngrams file
+# Input files from new_ngram measure
 idx_file = data_dir+'new_ngram/ngrams_'+str(n)+'_idx.txt'
 voc_file = data_dir+'new_ngram/ngrams_'+str(n)+'_vocabulary.txt'
 base_voc_file = data_dir+'new_ngram/ngrams_'+str(n)+'_baseline_vocabulary.txt'
-# Output ngrams file
+# Output file for new_ngram measure
 new_ngram_file = data_dir+'new_ngram/new_ngram_'+str(n)+'.txt'
 
 print('Loading baseline '+str(n)+'-ngram vocabulary')
@@ -85,11 +87,11 @@ with open(ayear_file, 'r', encoding='utf-8') as ayear_reader,\
             print('\t '+str(i)+' patents processed')
 print('New '+str(n)+'-gram found!')
 
-print('Reading whole vocabulary...')
+print('Reading whole ngrams vocabulary...')
 whole_voc = read_file(voc_file)
-print('whole vocabulary read!')
+print('Whole ngrams vocabulary read!')
 
-# Inverted index for vocabulary idx:word
+# Inverted index for vocabulary idx:ngram
 i = 0
 voc = {}
 for line in whole_voc:
@@ -106,4 +108,4 @@ with open(new_ngram_file, 'w', encoding='utf-8') as new_ngram_writer:
         count = new_ngram[ngram][1]
         ngram = int(ngram)
         new_ngram_writer.write(voc[ngram]+','+pno+','+str(count)+'\n')
-print('New words saved!')
+print('New ngrams saved!')

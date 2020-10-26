@@ -10,24 +10,27 @@ Created on Mon Aug 3 14:15:00 2020
          sam.arts@kuleuven.be
          jianan.hou@kuleuven.be
 
-@description: Extract a baseline vocabulary of ngrams. The vocabulary is
-formed by all the unique ngrams from patents filed before 1980. The outputs is
-ngrams_[n]_baseline_vocabulary.txt, that contains the list of ngrams from
-patents before 1980, with n as the size of the ngrams (2 or 3)
+@description: Extract a baseline vocabulary of indexed ngrams from the file
+ngrams_[n]_idx.txt. The vocabulary is formed by all the unique indexed ngrams
+from patents filed before 1980. The outputs is 
+ngrams_[n]_baseline_vocabulary.txt, that contains the list of indexed ngrams
+from patents before 1980. n is the size of the ngrams (2 or 3)
 
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# N-gram size (2 or 3)
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# n-gram size (2 or 3)
 n = 3
 # Input common file
 ayear_file = data_dir+'patent_ayear.txt'
-# Input ngrams file
+# Input file from new_ngram measure
 idx_file = data_dir+'new_ngram/ngrams_'+str(n)+'_idx.txt'
-# Output ngrams file
+# Output file for new_ngram measure
 base_voc_file = data_dir+'new_ngram/ngrams_'+str(n)+'_baseline_vocabulary.txt'
 
 print('Building baseline vocabulary...')
