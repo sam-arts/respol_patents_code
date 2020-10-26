@@ -10,10 +10,13 @@ Created on Mon Aug 3 14:15:00 2020
          sam.arts@kuleuven.be
          jianan.hou@kuleuven.be
 
+
+
 @description: Cleans the patent_concatenated.txt file by removing NLTK stop-
 words, other common stopwords, greek letters, symbols and roman numerals.
 Additionally it apply stemmming to each word using the SnowBall method
-from NLTK. The output consists of two files, keywords_vocabulary.txt, that
+from NLTK. It also removes words that appears in only one patent.
+The output consists of two files, keywords_vocabulary.txt, that
 contains the list of all unique unigrams in all the patents, and
 keywords.txt, that contains the clean text for each patent. The text
 is the list of unique unigrams for each patent.
@@ -21,7 +24,9 @@ is the list of unique unigrams for each patent.
 This is the same code as in new_word/step_02_clean_concatenated_patents.py and
 produces the same output in the same directory new_word/.
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 from nltk.stem.snowball import SnowballStemmer
@@ -31,21 +36,34 @@ import re
 
 
 def checkRoman(token):
+    """
+    Check if a token is a roman numeral.
+
+
+    Parameters
+    ----------
+    token : A string.
+
+    Returns
+    -------
+    True/False : A true value
+
+    """
     re_pattern = '[mdcxvi]+[a-z]'
     if re.fullmatch(re_pattern, token):
         return True
     return False
 
 
-aux_dir = 'E:/data/2019_patent_novelty_aux_files/'
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
+aux_dir = 'E:/data/2019_patent_novelty_aux_files/' # Original data
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
 greek_file = aux_dir+'greek.txt'
 symbol_file = aux_dir+'symbols.txt'
 stop_file = aux_dir+'additional_stopwords.txt'
-# Common data for all processes
+# Input common files
 concat_file = data_dir+'patent_concatenated.txt'
 pno_file = data_dir+'patent_number.txt'
-# new_word output
+# Output files for new_word measure (used also by new_comb measure)
 voc_file = data_dir+'new_word/keywords_vocabulary.txt'
 uni_file = data_dir+'new_word/keywords.txt'
 
@@ -95,10 +113,10 @@ with open(concat_file, 'r', encoding='utf-8') as concat_reader:
         # Standardize greek letters and eliminate symbols
         for r in list_replace:
             line = line.replace(*r)
-        # Replace .sub. and .sup.
+        # Replace .sub. and .sup. in each patent
         line = line.replace('.sub.', '')
         line = line.replace('.sup.', '')
-        # Extract tokens using regular expression
+        # Extract tokens using a regular expression
         tokens = re.findall('[a-z0-9][a-z0-9-]*[a-z0-9]+|[a-z0-9]', line)
         tokens = set(tokens)
         # Remove stopwords, and words of only one char and compossed only

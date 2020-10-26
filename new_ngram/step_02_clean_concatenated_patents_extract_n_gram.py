@@ -46,7 +46,7 @@ def checkRoman(token):
     -------
     True/False : A true value
 
-    """        
+    """
     re_pattern = '[mdcxvi]+[a-z]'
     if re.fullmatch(re_pattern, token):
         return True

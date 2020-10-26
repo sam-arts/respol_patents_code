@@ -10,27 +10,31 @@ Created on Mon Aug 3 14:15:00 2020
          sam.arts@kuleuven.be
          jianan.hou@kuleuven.be
 
-@description: Extract a baseline vocabulary of word combinations. The vocabu-
-lary is formed by all the unique word combinations from patents filed before
-1980. The outputs is comb_[n]_baseline_vocabulary.txt, that contains the list
-of combinations of n words from patents before 1980.
+@description: Extract a baseline vocabulary of indexed word combinations using
+the file keywords_idx.txt. The vocabulary is formed by all the unique indexed
+word combinations from patents filed before 1980. The output is
+comb_[n]_baseline_vocabulary.txt, that contains the list of combinations of
+n words from patents before 1980. n is the number of words in the combination
+(2 or 3).
 
 This code needs the data produced in the previous steps and stored in the
 new_word/ directory.
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 import itertools as it
 
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# Size of combinations (number of words)
-n = 3
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# Size of word combination (2 or 3)
+n = 2
 # Input common file
 ayear_file = data_dir+'patent_ayear.txt'
-# Input new_word
+# Input file from new_word measure
 idx_file = data_dir+'new_word/keywords_idx.txt'
-# Output new_comb
+# Output file for new_comb measure
 base_voc_file = data_dir+'new_comb/comb_'+str(n)+'_baseline_vocabulary.txt'
 
 # This process could take some time, depending on the computer
@@ -43,7 +47,7 @@ with open(idx_file, 'r', encoding='utf-8') as idx_reader,\
         ayear = int(line_ayear.strip())
         if ayear < 1980:
             line_idx = line_idx.strip()  # Remove newline char
-            tokens = line_idx.split(',')  # Split line
+            tokens = line_idx.split(',')  # Split tokens
             # Cast word idxs to int
             tokens = [int(idx) for idx in tokens[1].split()]
             word_combs = it.combinations(tokens, n)  # Extract combinations

@@ -10,23 +10,25 @@ Created on Mon Aug 3 14:15:00 2020
          sam.arts@kuleuven.be
          jianan.hou@kuleuven.be
 
-@description: Indexs the patent unigrams using the vocabulary. This is done to
-speed up the comparison process to find the first patent using an unigram and
-all the patents using such unigram. The outputs is keywords_idx.txt,
-that contains the index of each unigram as in the vocabulary.
+@description: Indexs the patent unigrams in the file keywords.txt using the
+vocabulary in keywords_vocabulary.txt. This is done to
+speed up the comparison process in the following steps. The outputs is 
+keywords_idx.txt, that contains the index of each unigram as in the vocabulary.
 
 This is the same code as in new_word/step_03_index_patents.py and
 produces the same output in the same directory new_word/.
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# new_word input
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# Input files from new_word measure
 uni_file = data_dir+'new_word/keywords.txt'
 voc_file = data_dir+'new_word/keywords_vocabulary.txt'
-# new_word output
+# Output file for new_word measure (used also by new_comb measure)
 idx_file = data_dir+'new_word/keywords_idx.txt'
 
 print('Reading vocabulary...')

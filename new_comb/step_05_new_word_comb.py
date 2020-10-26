@@ -17,30 +17,31 @@ ctionary. The words are extracted and considered only for patents filed from
 list of new combinations of n words found in a patent, the first patent to use
 them (patent number) and the total number of patents using them.
 
-This code is part of the article:
+This code is part of the article: "Natural Language Processing to Identify the
+Creation and Impact of New Technologies in Patent Text: Code, Data, and New
+Measures"
 
 """
 import itertools as it
 
 
-data_dir = 'E:/data/2020_research_policy_replicate_results/'
-# Size of combinations (number of words)
-n = 3
+data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# Size of word combination (2 or 3)
+n = 2
 # Input common file
 ayear_file = data_dir+'patent_ayear.txt'
-# Input new_word
+# Input files from new_word measure
 idx_file = data_dir+'new_word/keywords_idx.txt'
 voc_file = data_dir+'new_word/keywords_vocabulary.txt'
-# Input new_comb
+# Input file from new_comb measure
 base_voc_file = data_dir+'new_comb/comb_'+str(n)+'_baseline_vocabulary.txt'
-# Output new_comb
+# Output file for new_comb measure
 new_comb_file = data_dir+'new_comb/new_keyword_combinations_'+str(n)+'.txt'
 
 print('Reading baseline vocabulary...')
 baseline_voc = []
 with open(base_voc_file, 'r', encoding='utf-8') as base_voc_reader:
     for line in base_voc_reader:
-        # baseline_voc.append(line.strip())
         line = line.strip().split(',')  # Remove newline char and split line
         comb = [int(token) for token in line]
         comb = tuple(comb)

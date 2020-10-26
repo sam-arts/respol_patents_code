@@ -12,7 +12,7 @@ Created on Mon Aug 3 14:15:00 2020
 
 @description: Extract a baseline vocabulary of indexed unigrams from the file 
 keywords_idx.txt. The vocabulary is formed by all the unique indexed words from
-patents filed before 1980. The outputs is keywords_baseline_vocabulary.txt,
+patents filed before 1980. The output is keywords_baseline_vocabulary.txt,
 that contains the list of indexed unigrams from patents before 1980.
 
 This code is part of the article: "Natural Language Processing to Identify the
@@ -37,7 +37,7 @@ with open(idx_file, 'r', encoding='utf-8') as idx_reader,\
     for line_idx, line_ayear in zip(idx_reader, ayear_reader):
         ayear = int(line_ayear.strip())
         if ayear < 1980:
-            tokens = line_idx.strip().split(',')  # Remove the newline char
+            tokens = line_idx.strip().split(',')  # Remove newline char
             tokens = tokens[1].split() # Split tokens
             for token in tokens:
                 voc[token] = 0

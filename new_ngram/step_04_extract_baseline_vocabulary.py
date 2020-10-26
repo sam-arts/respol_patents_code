@@ -12,7 +12,7 @@ Created on Mon Aug 3 14:15:00 2020
 
 @description: Extract a baseline vocabulary of indexed ngrams from the file
 ngrams_[n]_idx.txt. The vocabulary is formed by all the unique indexed ngrams
-from patents filed before 1980. The outputs is 
+from patents filed before 1980. The output is 
 ngrams_[n]_baseline_vocabulary.txt, that contains the list of indexed ngrams
 from patents before 1980. n is the size of the ngrams (2 or 3)
 
