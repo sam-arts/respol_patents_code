@@ -12,7 +12,7 @@ Created on Mon Aug 3 14:15:00 2020
 
 @description: Indexs the patent unigrams in the file keywords.txt using the
 vocabulary in keywords_vocabulary.txt. This is done to
-speed up the comparison process in the following steps. The outputs is 
+speed up the comparison process in the following steps. The output is 
 keywords_idx.txt, that contains the index of each unigram as in the vocabulary.
 
 This code is part of the article: "Natural Language Processing to Identify the

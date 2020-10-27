@@ -43,7 +43,7 @@ def checkRoman(token):
     -------
     True/False : A true value
 
-    """    
+    """
     re_pattern = '[mdcxvi]+[a-z]'
     if re.fullmatch(re_pattern, token):
         return True
@@ -52,10 +52,10 @@ def checkRoman(token):
 
 aux_dir = 'E:/data/2019_patent_novelty_aux_files/' # Original data
 data_dir = 'E:/data/2020_research_policy_replicate_results/' # Processed data
+# Input common files
 greek_file = aux_dir+'greek.txt'
 symbol_file = aux_dir+'symbols.txt'
 stop_file = aux_dir+'additional_stopwords.txt'
-# Input common files
 concat_file = data_dir+'patent_concatenated.txt'
 pno_file = data_dir+'patent_number.txt'
 # Output files for new_word measure
