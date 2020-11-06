@@ -1,4 +1,11 @@
-# This code is part of the article: "Natural Language Processing to Identify the Creation and Impact of New Technologies in Patent Text: Code, Data, and New Measures"
+# This code is part of the article: "Natural language processing to identify the creation and impact of new technologies in patent text: code, data, and new measures".
+
+Data is available from https://zenodo.org/record/3515985 (DOI: 10.5281/zenodo.3515985).
+
+If you use the code or data, please cite the following paper: 
+
+Arts S, Hou J, Gomez JC. (2020). Natural language processing to identify the creation and impact of new technologies in patent text: code, data, and new measures. Forthcoming Research Policy. (https://doi.org/10.1016/j.respol.2020.104144)
+
 
 To use the code to replicate the results in the paper, the following steps need to be followed:
 
